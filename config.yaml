@@ -1,0 +1,62 @@
+# Concrete defaults for the TODO values in gbo-expensive.pdf.
+network: Net3
+network_file: null          # Set this to a local .inp file to override bundled Net3.
+sensor_count: 5
+
+simulation:
+  duration_hours: 48
+  hydraulic_timestep_minutes: 60
+  quality_timestep_minutes: 5
+  report_timestep_minutes: 5
+  injection_start_hours: [0, 6, 12, 18, 24]
+  injection_duration_hours: 2
+  source_type: MASS
+  source_strength: 1.0
+  detection_threshold: 0.01
+  undetected_penalty_hours: 48
+
+# Restrict contamination sources using hydraulics only, before water-quality
+# outcomes are observed. Sensor candidates remain all junctions.
+source_filter:
+  mode: propagation_capable
+  min_degree: 2
+  min_outgoing_flow_m3_s: 1.0e-6
+  require_all_start_times: true
+
+random_search:
+  budget: 200
+  repetitions: 30
+  first_seed: 100
+
+search:
+  budget: 200
+  repetitions: 30
+  first_seed: 100
+  initial_evaluations: 10
+  global_restart_patience: 20
+  significant_improvement_relative: 1.0e-3
+
+original_graphcombo:
+  kernel: diffusion
+  context_size: 250
+  max_radius: 5
+  acquisition: logei
+  model_train_iterations: 50
+  model_learning_rate: 0.1
+  fail_tolerance: 20
+  shrink_tolerance: 5
+  success_tolerance: 10
+  restart_location: random
+  global_restart_patience: 20
+  significant_improvement_relative: 1.0e-3
+
+travel_time_graph:
+  min_abs_flow_m3_s: 1.0e-6
+
+placement_coverage_kernel:
+  # Nearest-sensor travel-time coverage, normalized by the median distance of
+  # 20,000 objective-independent legal swaps. Bandwidth is dimensionless.
+  alpha: 4.0
+  bandwidth: 1.0
+
+output_dir: artifacts/water_sensor

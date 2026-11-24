@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+
+# Virtual environments
+venv/
+.venv/
+
+# Generated experiment outputs
+artifacts/
+
+# EPANET temporary files (normally created in a temporary directory)
+temp.inp
+temp.rpt
+temp.bin
+temp.out
+temp.hyd
+
+# Editor/OS files
+.DS_Store
+.idea/
+.vscode/
+
+# Separately obtained third-party source
+external/
+
+# figures
+figures/
